@@ -44,7 +44,8 @@ def connect_db(sql_server_nm, db_nm):
      
 def insert_data(conn, psv_file_nm, db_table_nm):
     # Cumulative. Manually validate that rows 1 and 2 are excluded, included, explicitly. 
-    qry = "BULK INSERT " + db_table_nm + " FROM '" + psv_file_nm + "' WITH (FIRSTROW=2, FIELDTERMINATOR='|')"
+    qry = ("BULK INSERT " + db_table_nm + " FROM '" + psv_file_nm +
+           "' WITH (FIRSTROW=2, FIELDTERMINATOR='|', ROWTERMINATOR = '0x0D0A')")
     print(qry[:-39]) # qry is not a parm, so doing it here. We could do similar for progress in main.              
     # Execute the query
     cursor  = conn.cursor()
